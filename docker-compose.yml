@@ -1,0 +1,36 @@
+version: '3.0'
+
+services:
+  neo4j:
+    image: neo4j:latest
+    ports: 
+      - "7474:7474" # HTTP
+      - "7687:7687" # Bolt
+    environment:
+      NEO4J_AUTH: 'neo4j/password' # username/password
+    networks:
+        - app-network
+    volumes:
+      - C:\\Users\\Murad Aladdinzada\\Desktop\\Vanderbilt MSDS\\Fall 2024\\NoSQL\\FinalProject\\archive\\:/var/lib/neo4j/import  # Default import directory
+  python-app:
+      image: python:3.9-slim
+      container_name: slim-python
+      volumes:
+        - C:\\Users\\Murad Aladdinzada\\Desktop\\Vanderbilt MSDS\\Fall 2024\\NoSQL\\FinalProject\\:/app
+      ports:
+      - "5000:5000"
+      working_dir: /app
+      networks:
+        - app-network
+      depends_on:
+        - neo4j
+      command: tail -f /dev/null
+      
+
+
+networks:
+  app-network:
+    driver: bridge
+
+
+

@@ -1,0 +1,4 @@
+Flask>=2.2.2 
+neo4j
+pandas>=1.2.0
+
